@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manage Users - e-Shop Admin</title>
+    <link rel="stylesheet" href="admin_styles.css">
+</head>
+<body>
+    <header>
+        <h1>Manage Users</h1>
+        <nav>
+            <a href="admin_index.html">Dashboard</a>
+            <a href="admin_products.html">Manage Products</a>
+            <a href="admin_orders.html">Manage Orders</a>
+            <a href="admin_login.html" id="adminLogoutLink">Logout</a>
+        </nav>
+    </header>
+
+    <main>
+        <section id="usersSection">
+            <h2>Users List</h2>
+            <table id="usersTable">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Email</th>
+                        <th>ID</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Users will be dynamically inserted here -->
+                </tbody>
+            </table>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2024 e-Shop Admin. All rights reserved.</p>
+    </footer>
+
+    <script src="admin_users.js"></script>
+</body>
+</html>
