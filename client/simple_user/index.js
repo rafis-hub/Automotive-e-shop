@@ -1,68 +1,76 @@
-// DOM elements
-const loginForm = document.getElementById('loginForm');
-const signupForm = document.getElementById('signupForm');
+document.addEventListener('DOMContentLoaded', () => {
+    const signupForm = document.getElementById('signupForm');
+    const loginForm = document.getElementById('loginForm');
 
-const logoutLink = document.getElementById('logoutLink');
-const loginLink = document.getElementById('loginLink');
-const profileLink = document.getElementById('profileLink');
+    if (signupForm) {
+        signupForm.addEventListener('submit', handleSignup);
+    }
 
-// Event Listeners
-loginForm.addEventListener('submit', handleLogin);
-signupForm.addEventListener('submit', handleSignup);
-logoutLink.addEventListener('click', handleLogout);
+    if (loginForm) {
+        loginForm.addEventListener('submit', handleLogin);
+    }
+});
 
-// // Initialize
-// if (currentUser) {
-//     toggleAuth(true);
-// } else {
-//     toggleAuth(false);
-// }
+// Handle Signup
+async function handleSignup(event) {
+    event.preventDefault();
+    
+    const name = document.getElementById('signupName').value;
+    const email = document.getElementById('signupEmail').value;
+    const password = document.getElementById('signupPassword').value;
+    
+    try {
+        const response = await fetch('/api/users/signup', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ name, email, password }),
+        });
 
-// API Signup
-function signup(username, password) {
-    fetch('http://localhost:3000/api/users/signup', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ username, password })
-    })
-    .then(response => response.json())
-    .then(data => {
-        if (data.token) {
-            localStorage.setItem('token', data.token); // Store JWT token
+        const data = await response.json();
+        
+        if (response.ok) {
             alert('Signup successful!');
-            window.location.href = 'index.html'; // Redirect to login page
+            // Redirect to login or another page
+            window.location.href = 'index.html';
         } else {
-            alert('Signup failed: ' + data);
+            alert('Signup failed: ' + data.message);
         }
-    })
-    .catch(error => console.error('Error:', error));
+    } catch (error) {
+        console.error('Error:', error);
+        alert('Signup failed: ' + error.message);
+    }
 }
 
-// API Login
-function login(username, password) {
-    fetch('http://localhost:3000/api/users/login', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ username, password })
-    })
-    .then(response => response.json())
-    .then(data => {
-        if (data.token) {
-            localStorage.setItem('token', data.token); // Store JWT token
+// Handle Login
+async function handleLogin(event) {
+    event.preventDefault();
+    
+    const email = document.getElementById('loginEmail').value;
+    const password = document.getElementById('loginPassword').value;
+    
+    try {
+        const response = await fetch('/api/users/login', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ email, password }),
+        });
+
+        const data = await response.json();
+
+        if (response.ok) {
+            localStorage.setItem('token', data.token); // Store JWT token in localStorage
             alert('Login successful!');
-            window.location.href = 'profile.html'; // Redirect to profile page
+            // Redirect to profile or another page
+            window.location.href = 'profile.html';
         } else {
-            alert('Login failed: ' + data);
+            alert('Login failed: ' + data.message);
         }
-    })
-    .catch(error => console.error('Error:', error));
+    } catch (error) {
+        console.error('Error:', error);
+        alert('Login failed: ' + error.message);
+    }
 }
-
-// API Logout
-function logout() {
-    localStorage.removeItem('token'); // Remove JWT token
-    alert('Logout successful!');
-    window.location.href = 'index.html'; // Redirect to login page
-}
-
-

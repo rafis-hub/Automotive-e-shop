@@ -1,19 +1,18 @@
 const express = require('express');
- const { isAdmin } = require('authMiddleware');
-const {
-    getAllUsers,
-    updateUser,
-    deleteUser,
-    getAllProducts,
-    updateProduct,
-    deleteProduct,
-    createProduct,
-    getAllOrders,
-    updateOrderStatus,
-    deleteOrder
-} = require('../controllers/adminController');
+const { getAllUsers, updateUser, deleteUser, getAllProducts, updateProduct, deleteProduct, createProduct, getAllOrders, updateOrderStatus, deleteOrder } = require('../controllers/adminController');
 
 const router = express.Router();
+
+// Middleware function to check if the user is an admin
+const isAdmin = (req, res, next) => {
+    // Replace this with your actual admin check logic
+    const userIsAdmin = true; // Example: This should be a real check, e.g., req.user.role === 'admin'
+    if (userIsAdmin) {
+        next(); // User is admin, proceed to the next middleware or route handler
+    } else {
+        res.status(403).json({ message: 'Access denied. Admins only.' });
+    }
+};
 
 // User management routes
 router.get('/users', isAdmin, getAllUsers);
