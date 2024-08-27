@@ -1,28 +1,24 @@
-// app.use('/api/users', userRoutes);
-// app.use('/api/products', productRoutes);
-// app.use('/api/orders', orderRoutes);
+const express = require('express');
+const mongoose = require('mongoose');
+// const bodyParser = require('body-parser');
+// const cors = require('cors');
 
+const Product = require('./models/Product');
+const User = require('./models/User');
+const Order = require('./models/Order');
 
-const express = require('../express');
-const mongoose = require('../mongoose');
-const bodyParser = require('../body-parser');
-const cors = require('../cors');
-
-const Product = require('../models/Product');
-const User = require('../models/User');
-const Order = require('../models/Order');
-
-const userRoutes = require('../routes/userRoutes');
-const productRoutes = require('../routes/productRoutes');
-const orderRoutes = require('../routes/orderRoutes');
-
+const userRoutes = require('./routes/userRoutes');
+const productRoutes = require('./routes/productRoutes');
+const orderRoutes = require('./routes/orderRoutes');
+const adminRoutes = require('./routes/admin');
 
 const app = express();
 app.use(express.json());
 
-mongoose.connect('mongodb://localhost:27017/eshop', {
+mongoose.connect('mongodb+srv://marRAF:Yn9xay0w0vK0Uq4R@eshopdb.odnjr.mongodb.net/?retryWrites=true&w=majority&appName=eshopdb', {
     useNewUrlParser: true,
-    useUnifiedTopology: true
+    useUnifiedTopology: true,
+    family: 4
 })
     .then(() => console.log('Connected to MongoDB'))
     .catch(err => console.error('Could not connect to MongoDB...', err));

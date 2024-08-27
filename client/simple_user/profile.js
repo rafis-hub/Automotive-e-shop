@@ -20,39 +20,14 @@ document.addEventListener('DOMContentLoaded', () => {
     // Event Listeners
     profileForm.addEventListener('submit', handleProfileUpdate);
 
-    function handleProfileUpdate(event) {
-        event.preventDefault();
-
-        const updatedName = profileNameInput.value;
-        const updatedPassword = profilePasswordInput.value;
-
-        // Update currentUser and users array
-        currentUser.name = updatedName;
-        currentUser.password = updatedPassword;
-
-        const userIndex = users.findIndex(user => user.email === currentUser.email);
-        if (userIndex !== -1) {
-            users[userIndex] = currentUser;
-        }
-
-        // Save to localStorage
-        localStorage.setItem('currentUser', JSON.stringify(currentUser));
-        localStorage.setItem('users', JSON.stringify(users));
-
-        alert('Profile updated successfully!');
-    }
-});
-
-//oi allages gia th vash
-
-//fetch user profile den eixame tha to testarw
+   });
 
 // API Fetch Profile
 function fetchUserProfile() {
     const token = localStorage.getItem('token');
     if (!token) {
         alert('No user logged in');
-        window.location.href = 'login.html';
+        window.location.href = 'index.html';
         return;
     }
 
@@ -67,14 +42,13 @@ function fetchUserProfile() {
     .catch(error => console.error('Error fetching profile:', error));
 }
 
-// update profile
 
 // API Update Profile
 function updateUserProfile(newUsername, newPassword) {
     const token = localStorage.getItem('token');
     if (!token) {
         alert('No user logged in');
-        window.location.href = 'login.html';
+        window.location.href = 'index.html';
         return;
     }
 

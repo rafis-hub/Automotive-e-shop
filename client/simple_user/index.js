@@ -1,6 +1,7 @@
 // DOM elements
 const loginForm = document.getElementById('loginForm');
 const signupForm = document.getElementById('signupForm');
+
 const logoutLink = document.getElementById('logoutLink');
 const loginLink = document.getElementById('loginLink');
 const profileLink = document.getElementById('profileLink');
@@ -10,12 +11,12 @@ loginForm.addEventListener('submit', handleLogin);
 signupForm.addEventListener('submit', handleSignup);
 logoutLink.addEventListener('click', handleLogout);
 
-// Initialize
-if (currentUser) {
-    toggleAuth(true);
-} else {
-    toggleAuth(false);
-}
+// // Initialize
+// if (currentUser) {
+//     toggleAuth(true);
+// } else {
+//     toggleAuth(false);
+// }
 
 // API Signup
 function signup(username, password) {
