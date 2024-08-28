@@ -152,7 +152,7 @@ fetch('http://localhost:3000/cart', {
     headers: {
         'Content-Type': 'application/json',
     },
-    body: JSON.stringify({ userId: user._id, productId: product._id })
+    body: JSON.stringify({ userproductId: product._id })
 })
 .then(response => response.json())
 .then(data => {
@@ -166,7 +166,7 @@ fetch('http://localhost:3000/favorites', {
     headers: {
         'Content-Type': 'application/json',
     },
-    body: JSON.stringify({ userId: user._id, productId: product._id  })
+    body: JSON.stringify({ productId: product._id })
 })
 .then(response => response.json())
 .then(data => {

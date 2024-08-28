@@ -52,7 +52,7 @@ document.addEventListener('DOMContentLoaded', function() {
     let editProductId = null;
 
     // Fetch and display products
-    fetch('http://localhost:3000/api/admin/products', {
+    fetch('http://localhost:3000/admin_products', {
         method: 'GET',
         headers: {
             'Authorization': 'Bearer ' + localStorage.getItem('adminToken')
@@ -91,7 +91,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
         if (editProductId) {
             // Update product
-            fetch(`http://localhost:3000/api/admin/products/${editProductId}`, {
+            fetch(`http://localhost:3000/admin_products/${editProductId}`, {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json',
@@ -107,7 +107,7 @@ document.addEventListener('DOMContentLoaded', function() {
             .catch(error => console.error('Error updating product:', error));
         } else {
             // Create new product
-            fetch('http://localhost:3000/api/admin/products', {
+            fetch('http://localhost:3000/admin_products', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -155,7 +155,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Edit product
     window.editProduct = function(productId) {
-        fetch(`http://localhost:3000/api/admin/products/${productId}`, {
+        fetch(`http://localhost:3000/admin_products/${productId}`, {
             method: 'GET',
             headers: {
                 'Authorization': 'Bearer ' + localStorage.getItem('adminToken')
@@ -171,7 +171,7 @@ document.addEventListener('DOMContentLoaded', function() {
     // Delete product
     window.deleteProduct = function(productId) {
         if (confirm('Are you sure you want to delete this product?')) {
-            fetch(`http://localhost:3000/api/admin/products/${productId}`, {
+            fetch(`http://localhost:3000/admin_products/${productId}`, {
                 method: 'DELETE',
                 headers: {
                     'Authorization': 'Bearer ' + localStorage.getItem('adminToken')
