@@ -1,12 +1,32 @@
-document.addEventListener('DOMContentLoaded', function() {
-    const profileForm = document.getElementById('profileForm');
-    const profileName = document.getElementById('profileName');
-    const profileEmail = document.getElementById('profileEmail');
-    const profilePassword = document.getElementById('profilePassword');
-    const token = localStorage.setItem('token', res.data.token);
+// Profile Page Logic
 
+document.addEventListener('DOMContentLoaded', () => {
+    if (!currentUser) {
+        alert('Please log in first.');
+        window.location.href = 'index.html';
+        return;
+    }
+
+    // DOM elements
+    const profileForm = document.getElementById('profileForm');
+    const profileNameInput = document.getElementById('profileName');
+    const profileEmailInput = document.getElementById('profileEmail');
+    const profilePasswordInput = document.getElementById('profilePassword');
+
+    // Populate the form with current user data
+    profileNameInput.value = currentUser.name;
+    profileEmailInput.value = currentUser.email;
+
+    // Event Listeners
+    profileForm.addEventListener('submit', handleProfileUpdate);
+
+   });
+
+// API Fetch Profile
+function fetchUserProfile() {
+    const token = localStorage.getItem('token');
     if (!token) {
-        alert('You need to be logged in to view this page.');
+        alert('No user logged in');
         window.location.href = 'index.html';
         return;
     }
@@ -21,9 +41,7 @@ document.addEventListener('DOMContentLoaded', function() {
     })
     .then(response => response.json())
     .then(data => {
-        profileName.value = data.name;
-        profileEmail.value = data.email;
-        profileEmail.password = data.password;
+        alert('Profile updated!');
     })
     .catch(error => console.error('Error:', error));
 
