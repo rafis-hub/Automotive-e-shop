@@ -32,11 +32,6 @@ if (adminLogoutLink) {
     });
 }
 
-// Dummy users data
-let users = JSON.parse(localStorage.getItem('users')) || [
-    {name: 'John Doe', email: 'john@example.com', id: "" },
-    {name: 'Jane Smith', email: 'jane@example.com', id: "" }
-];
 
 // DOM elements for users management
 const usersTableBody = document.querySelector('#usersTable tbody');

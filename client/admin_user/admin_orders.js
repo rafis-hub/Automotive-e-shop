@@ -32,21 +32,6 @@ if (adminLogoutLink) {
     });
 }
 
-// Dummy data for users, products, and orders
-let users = JSON.parse(localStorage.getItem('users')) || [
-    { id: 1, name: 'John Doe', email: 'john@example.com' },
-    { id: 2, name: 'Jane Smith', email: 'jane@example.com' }
-];
-
-let products = JSON.parse(localStorage.getItem('products')) || [
-    { id: 1, name: 'Product 1', description: 'Description 1', price: 10.00 },
-    { id: 2, name: 'Product 2', description: 'Description 2', price: 20.00 }
-];
-
-let orders = JSON.parse(localStorage.getItem('orders')) || [
-    { id: 1, userId: 1, products: [1, 2], totalAmount: 30.00, status: 'Pending' },
-    { id: 2, userId: 2, products: [2], totalAmount: 20.00, status: 'Processed' }
-];
 
 // DOM elements for orders management
 const ordersTableBody = document.querySelector('#ordersTable tbody');
