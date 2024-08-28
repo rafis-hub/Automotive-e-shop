@@ -38,6 +38,15 @@ document.getElementById('loginForm').addEventListener('submit', function(event) 
         }
     })
     .then(data => {
+<<<<<<< HEAD
+        alert(data);
+        // Store JWT token or redirect to profile page
+        window.location.href="profile.html"
+    })
+    .catch(error => console.error('Error:', error));
+});
+
+=======
         if (data._id) {
             localStorage.setItem('userId', data._id);}
         alert(data);
@@ -46,3 +55,4 @@ document.getElementById('loginForm').addEventListener('submit', function(event) 
     })
     .catch(error => console.error('Error:', error));
 });
+>>>>>>> 4cc12d54c10422a6dbae30721986530fb7d87e4c

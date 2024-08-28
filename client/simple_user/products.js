@@ -1,10 +1,10 @@
 document.addEventListener('DOMContentLoaded', () => {
     const productsContainer = document.getElementById('productsContainer');
     const searchInput = document.getElementById('searchInput');
-    const userId = 'user-id-here';  // Replace with the actual logged-in user's ID
-
+    // const email = user.email;  // Replace with the actual logged-in user's ID
+   
     // Fetch and display products
-    fetch('/products')
+    fetch('http://localhost:3000/products')
         .then(response => response.json())
         .then(products => {
             displayProducts(products);
@@ -32,7 +32,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // Search functionality
     searchInput.addEventListener('input', () => {
         const searchTerm = searchInput.value.toLowerCase();
-        fetch('/products')
+        fetch('http://localhost:3000/products')
             .then(response => response.json())
             .then(products => {
                 const filteredProducts = products.filter(product => 
@@ -55,33 +55,123 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-    function addToCart(userId, productId) {
-        fetch('/cart', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({ userId, productId })
-        })
-        .then(response => response.json())
-        .then(data => {
-            alert(data.message || 'Added to cart');
-        })
-        .catch(error => console.error('Error adding to cart:', error));
-    }
+    // function addToCart(userId, productId) {
+    //     fetch('http://localhost:3000/cart', {
+    //         method: 'POST',
+    //         headers: {
+    //             'Content-Type': 'application/json'
+    //         },
+    //         body: JSON.stringify({ userId, productId })
+    //     })
+    //     .then(response => response.json())
+    //     .then(data => {
+    //         alert(data.message || 'Added to cart');
+    //     })
+    //     .catch(error => console.error('Error adding to cart:', error));
+    // }
 
-    function addToFavorites(userId, productId) {
-        fetch('/favorites', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({ userId, productId })
-        })
-        .then(response => response.json())
-        .then(data => {
-            alert(data.message || 'Added to favorites');
-        })
-        .catch(error => console.error('Error adding to favorites:', error));
-    }
+    // function addToFavorites(userId, productId) {
+    //     fetch('http://localhost:3000/favorites', {
+    //         method: 'POST',
+    //         headers: {
+    //             'Content-Type': 'application/json'
+    //         },
+    //         body: JSON.stringify({ userId, productId })
+    //     })
+    //     .then(response => response.json())
+    //     .then(data => {
+    //         alert(data.message || 'Added to favorites');
+    //     })
+    //     .catch(error => console.error('Error adding to favorites:', error));
+    // }
+    
+
+
+// // Example: Adding a product to the cart
+// fetch('http://localhost:3000/cart', {
+//     method: 'POST',
+//     headers: {
+//         'Content-Type': 'application/json',
+//         'Authorization': 'Bearer ' + localStorage.getItem('token') // Send the JWT token
+//     },
+//     body: JSON.stringify({ productId: 'PRODUCT_ID_HERE' })
+// })
+// .then(response => response.json())
+// .then(data => {
+//     console.log(data.message);
+// })
+// .catch(error => console.error('Error:', error));
+
+// // Example: Adding a product to favorites
+// fetch('http://localhost:3000/favorites', {
+//     method: 'POST',
+//     headers: {
+//         'Content-Type': 'application/json',
+//         'Authorization': 'Bearer ' + localStorage.getItem('token') // Send the JWT token
+//     },
+//     body: JSON.stringify({ productId: 'PRODUCT_ID_HERE' })
+// })
+// .then(response => response.json())
+// .then(data => {
+//     console.log(data.message);
+// })
+// .catch(error => console.error('Error:', error));
+
+// Example: Adding a product to the cart
+// fetch('http://localhost:3000/cart', {
+//     method: 'POST',
+//     headers: {
+//         'Content-Type': 'application/json',
+//     },
+//     body: JSON.stringify({ email: email , productId: product._id })
+// })
+// .then(response => response.json())
+// .then(data => {
+//     console.log(data.message);
+// })
+// .catch(error => console.error('Error:', error));
+
+// // Example: Adding a product to favorites
+// fetch('http://localhost:3000/favorites', {
+//     method: 'POST',
+//     headers: {
+//         'Content-Type': 'application/json',
+//     },
+    
+//     body: JSON.stringify({ email: userEmail, productId: product._id })
+// })
+// .then(response => response.json())
+// .then(data => {
+//     console.log(data.message);
+// })
+// .catch(error => console.error('Error:', error));
+
+// Add product to cart
+fetch('http://localhost:3000/cart', {
+    method: 'POST',
+    headers: {
+        'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({ userproductId: product._id })
+})
+.then(response => response.json())
+.then(data => {
+    console.log(data.message);
+})
+.catch(error => console.error('Error:', error));
+
+// Add product to favorites
+fetch('http://localhost:3000/favorites', {
+    method: 'POST',
+    headers: {
+        'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({ productId: product._id })
+})
+.then(response => response.json())
+.then(data => {
+    console.log(data.message);
+})
+.catch(error => console.error('Error:', error));
+
 });
