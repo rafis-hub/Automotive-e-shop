@@ -1,76 +1,47 @@
-document.addEventListener('DOMContentLoaded', () => {
-    const signupForm = document.getElementById('signupForm');
-    const loginForm = document.getElementById('loginForm');
-
-    if (signupForm) {
-        signupForm.addEventListener('submit', handleSignup);
-    }
-
-    if (loginForm) {
-        loginForm.addEventListener('submit', handleLogin);
-    }
-});
-
-// Handle Signup
-async function handleSignup(event) {
+document.getElementById('signupForm').addEventListener('submit', function(event) {
     event.preventDefault();
     
     const name = document.getElementById('signupName').value;
     const email = document.getElementById('signupEmail').value;
     const password = document.getElementById('signupPassword').value;
-    
-    try {
-        const response = await fetch('/api/users/signup', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({ name, email, password }),
-        });
 
-        const data = await response.json();
-        
-        if (response.ok) {
-            alert('Signup successful!');
-            // Redirect to login or another page
-            window.location.href = 'index.html';
-        } else {
-            alert('Signup failed: ' + data.message);
-        }
-    } catch (error) {
-        console.error('Error:', error);
-        alert('Signup failed: ' + error.message);
-    }
-}
+    fetch('http://localhost:3000/signup', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ name, email, password })
+    })
+    .then(response => response.text())
+    .then(data => alert(data))
+    .catch(error => console.error('Error:', error));
+});
 
-// Handle Login
-async function handleLogin(event) {
+document.getElementById('loginForm').addEventListener('submit', function(event) {
     event.preventDefault();
     
     const email = document.getElementById('loginEmail').value;
     const password = document.getElementById('loginPassword').value;
-    
-    try {
-        const response = await fetch('/api/users/login', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({ email, password }),
-        });
 
-        const data = await response.json();
-
+    fetch('http://localhost:3000/login', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ email, password })
+    })
+    .then(response => {
         if (response.ok) {
-            localStorage.setItem('token', data.token); // Store JWT token in localStorage
-            alert('Login successful!');
-            // Redirect to profile or another page
-            window.location.href = 'profile.html';
+            return response.text();
         } else {
-            alert('Login failed: ' + data.message);
+            throw new Error('Login failed');
         }
-    } catch (error) {
-        console.error('Error:', error);
-        alert('Login failed: ' + error.message);
-    }
-}
+    })
+    .then(data => {
+        alert(data);
+        // Store JWT token or redirect to profile page
+        window.location.href="profile.html"
+    })
+    .catch(error => console.error('Error:', error));
+});
+
